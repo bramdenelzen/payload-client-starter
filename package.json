@@ -1,0 +1,55 @@
+{
+  "name": "payload-client-starter",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Per-client website template: Payload CMS + Next.js with the visual section builder.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
+    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
+    "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
+    "lint": "next lint",
+    "migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate",
+    "migrate:create": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:create",
+    "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
+    "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
+    "typecheck": "next typegen && tsc --noEmit"
+  },
+  "dependencies": {
+    "@payloadcms/db-postgres": "3.93.0",
+    "@payloadcms/db-sqlite": "3.93.0",
+    "@payloadcms/live-preview-react": "3.93.0",
+    "@payloadcms/next": "3.93.0",
+    "@payloadcms/richtext-lexical": "3.93.0",
+    "@payloadcms/storage-vercel-blob": "3.93.0",
+    "@payloadcms/ui": "3.93.0",
+    "cross-env": "^7.0.3",
+    "graphql": "^16.8.1",
+    "next": "16.3.3",
+    "payload": "3.93.0",
+    "payload-section-builder": "github:bramdenelzen/payload-section-builder#claude/project-thread-rp3xgb",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "sharp": "0.35.4"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.9",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "typescript": "5.7.3"
+  },
+  "engines": {
+    "node": "^22.23.4 || >=24.22.1"
+  },
+  "packageManager": "pnpm@10.28.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "payload-section-builder",
+      "sharp",
+      "unrs-resolver"
+    ]
+  }
+}
