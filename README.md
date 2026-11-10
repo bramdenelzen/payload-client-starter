@@ -142,17 +142,9 @@ on every deploy).
 
 ## The plugin dependency
 
-`payload-section-builder` isn't on npm yet, so it's installed from GitHub:
-
-```json
-"payload-section-builder": "github:bramdenelzen/payload-section-builder#main"
-```
-
-It builds itself on install, which is why it's listed in `pnpm.onlyBuiltDependencies`. The
-lockfile pins the commit; `pnpm update payload-section-builder` pulls the latest `main`.
-
-To switch to npm once it's published, replace the spec with a version (for example `"^0.1.0"`),
-remove it from `onlyBuiltDependencies`, and run `pnpm install`. Nothing else changes.
+`payload-section-builder` comes from npm (`^0.1.0`). Update it with
+`pnpm update payload-section-builder`, then run `pnpm generate:importmap` in case it added admin
+components. Avoid `0.0.0`: that release can't be imported.
 
 ## Scripts
 

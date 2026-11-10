@@ -42,8 +42,8 @@ importers:
         specifier: 3.93.0
         version: 3.93.0(graphql@16.15.0)(typescript@5.7.3)
       payload-section-builder:
-        specifier: github:bramdenelzen/payload-section-builder#claude/project-thread-rp3xgb
-        version: https://codeload.github.com/bramdenelzen/payload-section-builder/tar.gz/4bc450e2c9c242a041410869513af4c0c680c43b(@payloadcms/ui@3.93.0(@types/react@19.2.14)(monaco-editor@0.57.0)(next@16.3.3(@types/node@22.19.9)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(sass@1.77.4))(payload@3.93.0(graphql@16.15.0)(typescript@5.7.3))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@5.7.3))(payload@3.93.0(graphql@16.15.0)(typescript@5.7.3))(react@19.2.6)
+        specifier: ^0.1.0
+        version: 0.1.0(@payloadcms/ui@3.93.0(@types/react@19.2.14)(monaco-editor@0.57.0)(next@16.3.3(@types/node@22.19.9)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(sass@1.77.4))(payload@3.93.0(graphql@16.15.0)(typescript@5.7.3))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@5.7.3))(payload@3.93.0(graphql@16.15.0)(typescript@5.7.3))(react@19.2.6)
       react:
         specifier: 19.2.6
         version: 19.2.6
@@ -2141,9 +2141,8 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
 
-  payload-section-builder@https://codeload.github.com/bramdenelzen/payload-section-builder/tar.gz/4bc450e2c9c242a041410869513af4c0c680c43b:
-    resolution: {tarball: https://codeload.github.com/bramdenelzen/payload-section-builder/tar.gz/4bc450e2c9c242a041410869513af4c0c680c43b}
-    version: 0.0.0
+  payload-section-builder@0.1.0:
+    resolution: {integrity: sha512-cSUAFv2WuEx6kKeHfeyw0G2NvxGZzFp+uCeQxoGug8pEWamBwg71mcFOr26WkihodbfNp5b26e7RFfDxDLGM2w==}
     engines: {node: ^22.23.4 || >=24.22.1, pnpm: ^9 || ^10 || ^11}
     peerDependencies:
       '@payloadcms/ui': ^3.93.0
@@ -4803,7 +4802,7 @@ snapshots:
 
   path-type@4.0.0: {}
 
-  payload-section-builder@https://codeload.github.com/bramdenelzen/payload-section-builder/tar.gz/4bc450e2c9c242a041410869513af4c0c680c43b(@payloadcms/ui@3.93.0(@types/react@19.2.14)(monaco-editor@0.57.0)(next@16.3.3(@types/node@22.19.9)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(sass@1.77.4))(payload@3.93.0(graphql@16.15.0)(typescript@5.7.3))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@5.7.3))(payload@3.93.0(graphql@16.15.0)(typescript@5.7.3))(react@19.2.6):
+  payload-section-builder@0.1.0(@payloadcms/ui@3.93.0(@types/react@19.2.14)(monaco-editor@0.57.0)(next@16.3.3(@types/node@22.19.9)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(sass@1.77.4))(payload@3.93.0(graphql@16.15.0)(typescript@5.7.3))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@5.7.3))(payload@3.93.0(graphql@16.15.0)(typescript@5.7.3))(react@19.2.6):
     dependencies:
       '@payloadcms/ui': 3.93.0(@types/react@19.2.14)(monaco-editor@0.57.0)(next@16.3.3(@types/node@22.19.9)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(sass@1.77.4))(payload@3.93.0(graphql@16.15.0)(typescript@5.7.3))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@5.7.3)
       payload: 3.93.0(graphql@16.15.0)(typescript@5.7.3)
