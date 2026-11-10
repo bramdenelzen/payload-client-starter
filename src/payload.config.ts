@@ -8,6 +8,7 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { buildConfig, type Config } from 'payload'
 import { sectionBuilder } from 'payload-section-builder'
+import { seoAutopilot } from 'payload-seo-autopilot'
 import sharp from 'sharp'
 
 import { Media } from './collections/Media'
@@ -15,6 +16,7 @@ import { Pages } from './collections/Pages'
 import { Users } from './collections/Users'
 import { migrations } from './migrations'
 import { ensureHomePage } from './seed'
+import { seoConfig } from './seo.config'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -60,6 +62,10 @@ export default buildConfig({
     await ensureHomePage(payload)
   },
   plugins: [
+    // SEO tab, redirects and the alt text button. Listed before the section builder: plugin-seo
+    // moves the fields into a "Content" tab, and the builder (>= 0.1.2) then adds its preview
+    // bridge at the top level, so click-to-select keeps working on the SEO tab too.
+    seoAutopilot(seoConfig),
     sectionBuilder({
       collections: {
         pages: { field: 'layout' },

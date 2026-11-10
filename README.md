@@ -139,11 +139,27 @@ on every deploy).
 | `PAYLOAD_SECRET` | Yes | Long random string (`openssl rand -hex 32`) |
 | `DATABASE_URL` | Production | `postgres://...` for Postgres. Empty or `file:...` for SQLite |
 | `BLOB_READ_WRITE_TOKEN` | Production | Vercel Blob token. Empty: images go to `./image` |
+| `NEXT_PUBLIC_SERVER_URL` | Docker/Render | Public URL, e.g. `https://www.client.nl`, for canonical URLs and the sitemap. Vercel uses its production domain |
+| `ANTHROPIC_API_KEY` | No | Turns on AI suggestions for SEO texts and image alt text. Without it: rule-based text, no alt button |
 
-## The plugin dependency
+## SEO
 
-`payload-section-builder` comes from npm (`^0.1.0`). Update it with
-`pnpm update payload-section-builder`, then run `pnpm generate:importmap` in case it added admin
+[payload-seo-autopilot](https://github.com/bramdenelzen/payload-seo-autopilot) adds:
+- an SEO tab to pages, with Auto-generate for the title and description;
+- redirects;
+- a "Generate alt text" button on images.
+
+The site name is set in `src/seo.config.ts`. That same config is used for:
+- the page metadata, in `generateMetadata` in both page routes;
+- `sitemap.xml`;
+- `robots.txt`, in `src/app/robots.ts`. It has to live at the root of `app/`, because inside `(frontend)` the `[slug]` route would catch it.
+
+Preview deployments on Vercel get `noindex`. Set `SEO_NOINDEX=true` to block indexing anywhere else.
+
+## The plugin dependencies
+
+`payload-section-builder` (`^0.1.2`) and `payload-seo-autopilot` (`^0.1.3`) come from npm. Keep `seoAutopilot()` listed before `sectionBuilder()` in `payload.config.ts`. Update them with
+`pnpm update payload-section-builder payload-seo-autopilot`, then run `pnpm generate:importmap` in case it added admin
 components. Avoid `0.0.0`: that release can't be imported.
 
 ## Scripts
