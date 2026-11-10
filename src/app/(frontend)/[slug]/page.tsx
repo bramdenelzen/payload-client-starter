@@ -6,6 +6,8 @@ import { RenderSections } from '@/components/RenderSections'
 import { getPublishedPage } from '@/lib/getPage'
 import { toSlug } from '@/lib/slug'
 import { HOME_SLUG } from '@/pageTypes'
+import { seoConfig } from '@/seo.config'
+import { buildMetadata } from 'payload-seo-autopilot/next'
 
 export const dynamic = 'force-dynamic'
 
@@ -13,7 +15,7 @@ type Props = { params: Promise<{ slug: string }> }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const result = await getPublishedPage((await params).slug)
-  return result.status === 'found' ? { title: result.page.title } : {}
+  return result.status === 'found' ? buildMetadata({ collection: 'pages', config: seoConfig, doc: result.page }) : {}
 }
 
 export default async function Page({ params }: Props) {
