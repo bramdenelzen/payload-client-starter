@@ -1,0 +1,15 @@
+.text {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 64px 24px;
+}
+
+.text h2 {
+  font-size: 2rem;
+  margin: 0 0 16px;
+}
+
+.body {
+  font-size: 1.125rem;
+  line-height: 1.7;
+}

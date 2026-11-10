@@ -1,0 +1,33 @@
+# Production-like run on your machine: the Docker image + Postgres.
+#   docker compose up --build    then open http://localhost:3000/admin
+services:
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      DATABASE_URL: postgres://payload:payload@db:5432/payload
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET:-local-docker-secret}
+      BLOB_READ_WRITE_TOKEN: ${BLOB_READ_WRITE_TOKEN:-}
+    volumes:
+      - images:/app/image
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: payload
+      POSTGRES_PASSWORD: payload
+      POSTGRES_DB: payload
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U payload']
+      interval: 2s
+      retries: 20
+
+volumes:
+  pgdata:
+  images:
