@@ -17,6 +17,9 @@ services:
 
   db:
     image: postgres:16-alpine
+    # Exposed on the host so `pnpm dev` and `pnpm migrate:create` can use it too.
+    ports:
+      - '${POSTGRES_PORT:-5432}:5432'
     environment:
       POSTGRES_USER: payload
       POSTGRES_PASSWORD: payload

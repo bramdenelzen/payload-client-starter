@@ -23,6 +23,19 @@ cp .env.example .env    # then set PAYLOAD_SECRET
 pnpm dev
 ```
 
+By default this uses SQLite. To develop against Postgres instead (the same database as
+production), start the Postgres container and point `DATABASE_URL` at it in `.env`:
+
+```bash
+docker compose up -d db
+# .env: DATABASE_URL=postgres://payload:payload@localhost:5432/payload
+pnpm migrate    # once, on a fresh database
+pnpm dev
+```
+
+`docker compose down` stops it; the data stays in the `pgdata` volume. Set `POSTGRES_PORT` if
+5432 is already taken on your machine (and use that port in `DATABASE_URL`).
+
 Open http://localhost:3000/admin and create the first user. The **Home** page is created
 automatically on first start. Open it, click **Live Preview**, then click a section in the
 preview to edit it.
