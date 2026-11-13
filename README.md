@@ -58,9 +58,9 @@ src/
   components/
     RenderSections.tsx      renders a page's sections, with the editor markers
   app/(frontend)/
-    page.tsx                home page at /
-    [slug]/page.tsx         every other page
+    [[...slug]]/page.tsx    every public page, the home page at /
     preview/[id]/           live preview (drafts, logged-in editors only)
+  lib/getPage.ts            cached reads for public pages and redirects
   app/(payload)/            Payload admin and API (generated, don't edit)
   pageTypes.ts              page types: home, default
   payload.config.ts
@@ -100,6 +100,26 @@ export const hero: SectionConfig = {
 
 Payload hides sections that aren't allowed and rejects them on save. Add a new page type only when
 a client needs it, by adding it to `PAGE_TYPES`.
+
+### Caching
+
+Public pages are cached: a page is rendered on its first visit and then served from the cache,
+without touching the database. When an editor publishes, unpublishes, deletes or renames a page,
+or changes an image or a redirect, the section builder revalidates the cache tags of what changed,
+and the next visitor gets the new version. There is no time-based expiry and no `force-dynamic`.
+
+- Cached reads live in `src/lib/getPage.ts`, tagged with `cacheTags` from `payload-section-builder`.
+  A new section that shows data from another collection or a global needs that tag on the page
+  read, and the collection or global in the `cache` option in `payload.config.ts`.
+- `next build` renders no pages, so it never needs the database (Docker builds have none).
+- The live preview (`/preview/[id]`) is never cached; it always shows the latest draft.
+- `sitemap.xml` is rendered per request from cached data.
+- In `pnpm dev` pages render on every request. Check caching with `pnpm build && pnpm start`:
+  the `x-nextjs-cache` response header shows `HIT` or `MISS`.
+
+On Docker the cache lives inside the Next.js server, which is right for one instance (the usual
+setup per client). With several instances, or a CDN that caches HTML in front of the app, the
+other copies don't hear about a publish; that needs a shared Next.js cache handler.
 
 ## Database migrations
 
@@ -159,19 +179,19 @@ on every deploy).
 
 [payload-seo-autopilot](https://github.com/bramdenelzen/payload-seo-autopilot) adds:
 - an SEO tab to pages, with Auto-generate for the title and description;
-- redirects;
+- redirects, managed in the admin and served by the page route for URLs without a page (for example after a page was renamed);
 - a "Generate alt text" button on images.
 
 The site name is set in `src/seo.config.ts`. That same config is used for:
-- the page metadata, in `generateMetadata` in both page routes;
+- the page metadata, in `generateMetadata` in the page route;
 - `sitemap.xml`;
-- `robots.txt`, in `src/app/robots.ts`. It has to live at the root of `app/`, because inside `(frontend)` the `[slug]` route would catch it.
+- `robots.txt`, in `src/app/robots.ts`. It has to live at the root of `app/`, because inside `(frontend)` the page route would catch it.
 
 Preview deployments on Vercel get `noindex`. Set `SEO_NOINDEX=true` to block indexing anywhere else.
 
 ## The plugin dependencies
 
-`payload-section-builder` (`^0.1.2`) and `payload-seo-autopilot` (`^0.1.3`) come from npm. Keep `seoAutopilot()` listed before `sectionBuilder()` in `payload.config.ts`. Update them with
+`payload-section-builder` (`^0.2.0`) and `payload-seo-autopilot` (`^0.1.3`) come from npm. Keep `seoAutopilot()` listed before `sectionBuilder()` in `payload.config.ts`. Update them with
 `pnpm update payload-section-builder payload-seo-autopilot`, then run `pnpm generate:importmap` in case it added admin
 components. Avoid `0.0.0`: that release can't be imported.
 

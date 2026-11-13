@@ -7,11 +7,12 @@ import { requestOrigin } from '@/lib/origin'
 
 import { PreviewPage } from './PreviewPage'
 
-export const dynamic = 'force-dynamic'
-
 /**
  * Live preview loads pages by document id, not slug: the slug can be empty or
  * changed-but-unsaved while editing.
+ *
+ * Never cached: it reads the auth cookie (headers()), which makes Next.js render it per
+ * request. The public pages are cached; drafts only ever show here.
  */
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
