@@ -31,7 +31,7 @@
     "graphql": "^16.8.1",
     "next": "16.3.3",
     "payload": "3.93.0",
-    "payload-section-builder": "^0.1.2",
+    "payload-section-builder": "^0.2.0",
     "payload-seo-autopilot": "^0.1.3",
     "react": "19.2.6",
     "react-dom": "19.2.6",

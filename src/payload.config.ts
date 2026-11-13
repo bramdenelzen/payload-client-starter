@@ -67,6 +67,9 @@ export default buildConfig({
     // bridge at the top level, so click-to-select keeps working on the SEO tab too.
     seoAutopilot(seoConfig),
     sectionBuilder({
+      // Publishing, unpublishing, deleting or renaming refreshes the cached public pages
+      // (src/lib/getPage.ts). Media and redirects are shown on pages, so they count too.
+      cache: { collections: { media: true, redirects: true } },
       collections: {
         pages: { field: 'layout' },
       },
